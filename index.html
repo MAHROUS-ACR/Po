@@ -452,6 +452,38 @@ background-color:#fff;
             // Scroll to bottom of chat messages
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+
+  // Initialize Firebase Messaging
+  const messaging = firebase.messaging();
+
+  // Request permission to send notifications
+  messaging.requestPermission()
+    .then(() => {
+      console.log('Notification permission granted.');
+      return messaging.getToken();
+    })
+    .then((token) => {
+      console.log('FCM Token:', token);
+      // يمكنك الآن إرسال هذا التوكن إلى الخادم الخاص بك لتخزينه واستخدامه لاحقًا.
+    })
+    .catch((err) => {
+      console.error('Unable to get permission to notify.', err);
+    });
+
+  // Handle incoming messages
+  messaging.onMessage((payload) => {
+    console.log('Message received. ', payload);
+    // Customize notification here
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+      body: payload.notification.body,
+      icon: payload.notification.icon
+    };
+
+    if (Notification.permission === 'granted') {
+      new Notification(notificationTitle, notificationOptions);
+    }
+  });
     </script>
 </body>
 </html>
