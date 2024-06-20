@@ -456,34 +456,36 @@ background-color:#fff;
   // Initialize Firebase Messaging
   const messaging = firebase.messaging();
 
-  // Request permission to send notifications
-  messaging.requestPermission()
+messaging.requestPermission()
     .then(() => {
-      console.log('Notification permission granted.');
-       return messaging.getToken({ vapidKey: 'BNvgfXEqXx4d33PONOcMRFpVKbXCJdlk4h1bNhg854bFmKWUYO35tcXpCK8DdFNGpdHKa80VzDjI5EIfSuRXstA' });
+        console.log('Notification permission granted.');
+        return messaging.getToken({ vapidKey: 'BNvgfXEqXx4d33PONOcMRFpVKbXCJdlk4h1bNhg854bFmKWUYO35tcXpCK8DdFNGpdHKa80VzDjI5EIfSuRXstA' });
     })
     .then((token) => {
-      console.log('FCM Token:', token);
-      // يمكنك الآن إرسال هذا التوكن إلى الخادم الخاص بك لتخزينه واستخدامه لاحقًا.
+        console.log('FCM Token:', token);
+        // أرسل التوكن إلى الخادم لتخزينه واستخدامه لاحقًا.
+        saveTokenToServer(token);
     })
     .catch((err) => {
-      console.error('Unable to get permission to notify.', err);
+        console.error('Unable to get permission to notify.', err);
     });
 
-  // Handle incoming messages
-  messaging.onMessage((payload) => {
+messaging.onMessage((payload) => {
     console.log('Message received. ', payload);
-    // Customize notification here
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
-      body: payload.notification.body,
-      icon: payload.notification.icon
+        body: payload.notification.body,
+        icon: payload.notification.icon
     };
 
     if (Notification.permission === 'granted') {
-      new Notification(notificationTitle, notificationOptions);
+        new Notification(notificationTitle, notificationOptions);
     }
-  });
+});
+
+function saveTokenToServer(token) {
+    // منطق حفظ التوكن إلى الخادم
+}
     </script>
 </body>
 </html>
