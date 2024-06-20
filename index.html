@@ -460,7 +460,7 @@ background-color:#fff;
   messaging.requestPermission()
     .then(() => {
       console.log('Notification permission granted.');
-      return messaging.getToken();
+       return messaging.getToken({ vapidKey: 'BNvgfXEqXx4d33PONOcMRFpVKbXCJdlk4h1bNhg854bFmKWUYO35tcXpCK8DdFNGpdHKa80VzDjI5EIfSuRXstA' });
     })
     .then((token) => {
       console.log('FCM Token:', token);
