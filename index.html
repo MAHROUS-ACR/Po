@@ -464,7 +464,7 @@ firebase.auth().onAuthStateChanged((user) => {
 messaging.requestPermission()
     .then(() => {
         console.log('Notification permission granted.');
-        return messaging.getToken({ vapidKey: 'BFbSQP5_5FvioQTo_TG2Z9ivFJjZ2tEusiko8-fDkEjrCZPeRSGa_cdr2gsaJXSgWVMTL8PNFYBKcg5bJT_iBhI' });
+        return messaging.getToken({'BFbSQP5_5FvioQTo_TG2Z9ivFJjZ2tEusiko8-fDkEjrCZPeRSGa_cdr2gsaJXSgWVMTL8PNFYBKcg5bJT_iBhI' });
     })
     .then((token) => {
         console.log('FCM Token:', token);
