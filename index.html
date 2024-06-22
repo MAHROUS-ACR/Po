@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -130,7 +130,9 @@ background-color:#fff;
             text-align: center;
         }
     </style>
-   
+    
+</script>
+</head>
 <body>
     <div class="container">
         <h1>PO.ACR</h1>
@@ -189,7 +191,7 @@ background-color:#fff;
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-    
+    <script>
         
         // Firebase Configuration
         const firebaseConfig = {
@@ -459,15 +461,6 @@ firebase.auth().onAuthStateChanged((user) => {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-
-  const beamsClient = new PusherPushNotifications.Client({
-    instanceId: '62df6c6e-226a-46af-8ff8-eee61c645c75',
-  });
-
-  beamsClient.start()
-    .then(() => beamsClient.addDeviceInterest('hello'))
-    .then(() => console.log('Successfully registered and subscribed!'))
-    .catch(console.error);
 
     </script>
 </body>
