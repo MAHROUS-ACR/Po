@@ -130,6 +130,19 @@ background-color:#fff;
             text-align: center;
         }
     </style>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "db1b19fd-62be-41cb-8129-c129d8f180de",
+      safari_web_id: "web.onesignal.auto.662c778c-4ab6-4517-8ad0-9e9a32a53670",
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });
+</script>
 </head>
 <body>
     <div class="container">
@@ -458,18 +471,7 @@ firebase.auth().onAuthStateChanged((user) => {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
- src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "db1b19fd-62be-41cb-8129-c129d8f180de",
-      safari_web_id: "web.onesignal.auto.662c778c-4ab6-4517-8ad0-9e9a32a53670",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
+
     </script>
 </body>
 </html>
