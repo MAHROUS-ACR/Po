@@ -146,6 +146,7 @@ background-color:#fff;
         </div>
         
         <button id="logout-button" onclick="logout()" style="display:none;">Logout</button>
+<div id="user-email" style="display:none; text-align: center; margin-bottom: 20px;"></div>
         <div id="filters" style="display:none;">
             <label for="departmentFilter">تصفية بالقسم:</label>
             <select id="departmentFilter" onchange="applyFilters()">
@@ -204,23 +205,26 @@ background-color:#fff;
         firebase.initializeApp(firebaseConfig);
 
         // Authentication
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('data').style.display = 'table';
-                document.getElementById('logout-button').style.display = 'block';
-                document.getElementById('filters').style.display = 'block';
-                document.getElementById('chat-container').style.display = 'block';
-                fetchData();
-                loadChatMessages();
-            } else {
-                document.getElementById('login-form').style.display = 'block';
-                document.getElementById('data').style.display = 'none';
-                document.getElementById('logout-button').style.display = 'none';
-                document.getElementById('filters').style.display = 'none';
-                document.getElementById('chat-container').style.display = 'none';
-            }
-        });
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('data').style.display = 'table';
+        document.getElementById('logout-button').style.display = 'block';
+        document.getElementById('filters').style.display = 'block';
+        document.getElementById('chat-container').style.display = 'block';
+        document.getElementById('user-email').style.display = 'block';
+        document.getElementById('user-email').innerText = `Logged in as: ${user.email}`;
+        fetchData();
+        loadChatMessages();
+    } else {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('data').style.display = 'none';
+        document.getElementById('logout-button').style.display = 'none';
+        document.getElementById('filters').style.display = 'none';
+        document.getElementById('chat-container').style.display = 'none';
+        document.getElementById('user-email').style.display = 'none';
+    }
+});
 
         function login() {
             const email = document.getElementById('email').value;
