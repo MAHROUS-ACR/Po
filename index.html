@@ -473,6 +473,15 @@ firebase.auth().onAuthStateChanged((user) => {
         }
 <script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
 
+  const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '62df6c6e-226a-46af-8ff8-eee61c645c75',
+  });
+
+  beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
+
     </script>
 </body>
 </html>
