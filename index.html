@@ -458,39 +458,18 @@ firebase.auth().onAuthStateChanged((user) => {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-  // Initialize Firebase Messaging
-  const messaging = firebase.messaging();
-
-messaging.requestPermission()
-    .then(() => {
-        console.log('Notification permission granted.');
-        return messaging.getToken({'BFbSQP5_5FvioQTo_TG2Z9ivFJjZ2tEusiko8-fDkEjrCZPeRSGa_cdr2gsaJXSgWVMTL8PNFYBKcg5bJT_iBhI' });
-    })
-    .then((token) => {
-        console.log('FCM Token:', token);
-        // أرسل التوكن إلى الخادم لتخزينه واستخدامه لاحقًا.
-        saveTokenToServer(token);
-    })
-    .catch((err) => {
-        console.error('Unable to get permission to notify.', err);
+ src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "db1b19fd-62be-41cb-8129-c129d8f180de",
+      safari_web_id: "web.onesignal.auto.662c778c-4ab6-4517-8ad0-9e9a32a53670",
+      notifyButton: {
+        enable: true,
+      },
     });
-
-messaging.onMessage((payload) => {
-    console.log('Message received. ', payload);
-    const notificationTitle = payload.notification.title;
-    const notificationOptions = {
-        body: payload.notification.body,
-        icon: payload.notification.icon
-    };
-
-    if (Notification.permission === 'granted') {
-        new Notification(notificationTitle, notificationOptions);
-    }
-});
-
-function saveTokenToServer(token) {
-    // منطق حفظ التوكن إلى الخادم
-}
+  });
     </script>
 </body>
 </html>
