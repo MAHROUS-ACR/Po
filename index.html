@@ -155,7 +155,7 @@ background-color:#fff;
         </div>
         
         <button id="logout-button" onclick="logout()" style="display:none;">Logout</button>
-        <h3 id = "nfvalueDisplay"></h3>
+        <h3 id = "nDvalueDisplay"></h3>
 <div id="user-email" style="display:none; text-align: center; margin-bottom: 20px;"></div>
         <div id="filters" style="display:none;">
             <label for="departmentFilter">تصفية بالقسم:</label>
@@ -274,10 +274,10 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         }
             const database = firebase.database();
-            const ref = database.ref('/N');
-            ref.on('value', (snapshot) => {
-                const nfvalue = snapshot.val();
-                document.getElementById('nfvalueDisplay').textcontent= nfvalue;
+            const Nref = database.ref('/N');
+            Nref.on('value', (snapshot) => {
+                const nDvalue = snapshot.val();
+                document.getElementById('nDvalueDisplay').textcontent= nDvalue;
             });
         // Populate filters with unique values
         function populateFilters(data) {
