@@ -155,7 +155,7 @@ background-color:#fff;
         </div>
         
         <button id="logout-button" onclick="logout()" style="display:none;">Logout</button>
-        <h3 id = "nDvalueDisplay">جارى التحميل...</h3>
+        <h3> id = "nDvalueDisplay"</h3>
 <div id="user-email" style="display:none; text-align: center; margin-bottom: 20px;"></div>
         <div id="filters" style="display:none;">
             <label for="departmentFilter">تصفية بالقسم:</label>
@@ -274,7 +274,7 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         }
             const database = firebase.database();
-            const Nref = database.ref('/N');
+            const Nref = database.ref('N/NF');
             Nref.on('value', (snapshot) => {
                 const nDvalue = snapshot.val();
                 document.getElementById('nDvalueDisplay').textcontent= nDvalue;
