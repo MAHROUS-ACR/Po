@@ -273,6 +273,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 alert("Error: " + error.code); // Show error message to user
             });
         }
+            const database = firebase.database();
             const ref = database.ref('/N');
             ref.on('value', (snapshot) => {
                 const nfvalue = snapshot.val();
