@@ -274,7 +274,7 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         }
             const database = firebase.database();
-            const ref = database.ref('/N');
+            const ref = database.ref('/N/NF');
             ref.on('value', (snapshot) => {
                 const nfvalue = snapshot.val();
                 document.getElementById('nfvalueDisplay').textcontent= nfvalue;
