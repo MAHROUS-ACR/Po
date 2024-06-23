@@ -277,7 +277,7 @@ firebase.auth().onAuthStateChanged((user) => {
             const ref = database.ref('/N');
             ref.on('value', (snapshot) => {
                 const nfvalue = snapshot.val();
-                document.getelementbyId('nfvalueDisplay').textcontent= nfvalue;
+                document.getElementById('nfvalueDisplay').textcontent= nfvalue;
             });
         // Populate filters with unique values
         function populateFilters(data) {
