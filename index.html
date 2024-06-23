@@ -26,13 +26,10 @@ background-color:#fff;
             margin-bottom: 20px;
         }
         @keyframes blink {
-            0 % {color:#3498db;
-             font-weight:bold;}
-              50 % {color:#e74c3c;
-             font-weight:normal;}  
-            100 % {color:#3498db;
-             font-weight:bold;}
-                  }
+            0% { color: #3498db; font-weight: bold; } /* اللون الأزرق ونص بولد */
+            50% { color: #e74c3c; font-weight: normal; } /* اللون الأحمر ونص عادي */
+            100% { color: #3498db; font-weight: bold; } /* العودة إلى اللون الأزرق ونص بولد */
+        }
         #nDvalueDisplay {
             animation: blink 2s infinite; /* تكرار التأثير كل ثانيتين وبشكل متكرر */
             color: #3498db; /* اللون الأزرق الافتراضي للنص */
