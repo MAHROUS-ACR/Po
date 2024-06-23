@@ -25,6 +25,11 @@ background-color:#fff;
             text-align: center;
             margin-bottom: 20px;
         }
+         h {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -150,7 +155,7 @@ background-color:#fff;
         </div>
         
         <button id="logout-button" onclick="logout()" style="display:none;">Logout</button>
-<div class="onesignal-customlink-container"></div>
+        <h2 id = "nfvalueDisplay"><\h2>
 <div id="user-email" style="display:none; text-align: center; margin-bottom: 20px;"></div>
         <div id="filters" style="display:none;">
             <label for="departmentFilter">تصفية بالقسم:</label>
@@ -258,6 +263,7 @@ firebase.auth().onAuthStateChanged((user) => {
         function fetchData() {
             const database = firebase.database();
             const dbRef = database.ref('/data');
+           
             dbRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 populateFilters(data); // Populate the filters with unique values
@@ -267,7 +273,11 @@ firebase.auth().onAuthStateChanged((user) => {
                 alert("Error: " + error.code); // Show error message to user
             });
         }
-
+            const ref = database.ref('/N/NF');
+            ref.on('value', (snapshot) => {
+                const nfvalue = snapshot.val();
+                document.getelementbyId('nfvalueDisplay').textcontent= nfvalue;
+            });
         // Populate filters with unique values
         function populateFilters(data) {
             const departments = new Set();
