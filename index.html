@@ -268,13 +268,14 @@ firebase.auth().onAuthStateChanged((user) => {
                 console.error("Error: " + error.code);
                 alert("Error: " + error.code); // Show error message to user
             });
-        }
-            
             const Nref = database.ref('N/NF');
             Nref.on('value', (snapshot) => {
                 const nDvalue = snapshot.val();
-                document.getElementById('nDvalueDisplay').textcontent= nDvalue;
+                document.getElementById('nDvalueDisplay').textContent= nDvalue;
             });
+        }
+            
+            
         // Populate filters with unique values
         function populateFilters(data) {
             const departments = new Set();
