@@ -273,6 +273,7 @@ firebase.auth().onAuthStateChanged((user) => {
         document.getElementById('user-email').innerText = `Logged in as: ${user.email}`;
         fetchData();
         loadChatMessages();
+      loadFiles();
     } else {
         document.getElementById('login-form').style.display = 'block';
         document.getElementById('data').style.display = 'none';
