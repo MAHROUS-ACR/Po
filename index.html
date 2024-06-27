@@ -591,7 +591,8 @@ function saveFileLink(minOfPO_ID, fileName, downloadURL) {
     var user = firebase.auth().currentUser;
     if (user) {
         var dbRef = firebase.database().ref(`users/${user.uid}/files/${minOfPO_ID}`);
-        dbRef.set({
+        var newFileRef = dbRef.push(); // Create a new reference for each file
+        newFileRef.set({
             name: fileName,
             url: downloadURL
         });
