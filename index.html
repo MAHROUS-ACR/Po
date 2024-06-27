@@ -354,6 +354,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 option.value = dept;
                 option.text = dept;
                 departmentFilter.appendChild(option);
+              loadFiles();
             });
 
             clientFilter.innerHTML = '<option value="">الكل</option>'; // Reset options
@@ -362,6 +363,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 option.value = client;
                 option.text = client;
                 clientFilter.appendChild(option);
+              loadFiles();
             });
         }
 
