@@ -582,6 +582,7 @@ function uploadFile(minOfPO_ID) {
             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 console.log('File available at', downloadURL);
                 saveFileLink(minOfPO_ID, file.name, downloadURL); // حفظ الرابط في قاعدة البيانات مع ربطه بالصف
+showUploadConfirmation(file.name, downloadURL); // Show upload confirmation message and add file to list
             });
         }
     );
@@ -617,6 +618,19 @@ function loadFiles(minOfPO_ID) {
     });
 }
 
+function showUploadConfirmation(fileName, downloadURL) {
+    alert('File uploaded successfully!');
+
+    // Add uploaded file to the list
+    var filesList = document.getElementById('files-list');
+    var listItem = document.createElement('li');
+    var link = document.createElement('a');
+    link.href = downloadURL;
+    link.textContent = fileName;
+    link.target = '_blank';
+    listItem.appendChild(link);
+    filesList.appendChild(listItem);
+}
     </script>
 </body>
 </html>
