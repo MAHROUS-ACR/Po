@@ -354,7 +354,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 option.value = dept;
                 option.text = dept;
                 departmentFilter.appendChild(option);
-              loadFiles();
+             
             });
 
             clientFilter.innerHTML = '<option value="">الكل</option>'; // Reset options
@@ -363,7 +363,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 option.value = client;
                 option.text = client;
                 clientFilter.appendChild(option);
-              loadFiles();
+             
             });
         }
 
@@ -451,7 +451,8 @@ firebase.auth().onAuthStateChanged((user) => {
                 displayData(data);
             }, (error) => {
                 console.error("Error: " + error.code);
-                alert("Error: " + error.code); // Show error message to user
+                alert("Error: " + error.code);
+              loadFiles();// Show error message to user
             });
         }
 
