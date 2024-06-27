@@ -289,6 +289,7 @@ firebase.auth().onAuthStateChanged((user) => {
         document.getElementById('filters').style.display = 'none';
         document.getElementById('chat-container').style.display = 'none';
         document.getElementById('user-email').style.display = 'none';
+      loadFiles();
     }
 });
 
@@ -375,7 +376,7 @@ firebase.auth().onAuthStateChanged((user) => {
             tableBody.innerHTML = ''; // Clear previous data
 
             let groupKey = '';
-
+ loadFiles();
             Object.keys(data).forEach((key, index) => {
                 if ((departmentFilter === '' || data[key].القسم === departmentFilter) &&
                     (clientFilter === '' || data[key].العميل === clientFilter)) {
