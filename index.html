@@ -235,6 +235,7 @@ background-color:#fff;
 
     <!-- Firebase SDKs and Configuration -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
@@ -399,6 +400,19 @@ firebase.auth().onAuthStateChanged((user) => {
                                     <input type="text" id="comment-input-${data[key].MinOfPO_ID}" placeholder="Add a comment">
                                     <button onclick="addComment('${data[key].MinOfPO_ID}')">Add Comment</button>
                                 </div>
+
+ <div id="upload-container">
+    <input type="file" id="file-upload" />
+    <button onclick="uploadFile()">Upload</button>
+  </div>
+
+  <div id="uploaded-files">
+    <h3>Uploaded Files:</h3>
+    <ul id="files-list">
+      <!-- سيتم إضافة الروابط هنا -->
+    </ul>
+  </div>
+
                             </td>
                         </tr>`;
                     tableBody.innerHTML += row;
@@ -519,6 +533,44 @@ firebase.auth().onAuthStateChanged((user) => {
             // Scroll to bottom of chat messages
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+
+
+function uploadFile() {
+      var file = document.getElementById('file-upload').files[0];
+      if (!file) {
+        alert('Please choose a file to upload.');
+        return;
+      }
+      var storageRef = firebase.storage().ref('uploads/' + file.name); // تحديد المسار داخل فولدر "uploads"
+      var uploadTask = storageRef.put(file);
+
+      uploadTask.on('state_changed',
+        function(snapshot) {
+          // تقدم التحميل (مثل النسبة المئوية)
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        function(error) {
+          // معالجة الأخطاء هنا
+          console.error('Error uploading file:', error);
+        },
+        function() {
+          // تم التحميل بنجاح
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            // إضافة الرابط إلى قائمة الملفات المحملة
+            var filesList = document.getElementById('files-list');
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.textContent = file.name;
+            link.target = '_blank';
+            listItem.appendChild(link);
+            filesList.appendChild(listItem);
+          });
+        }
+      );
+    }
 
 
     </script>
