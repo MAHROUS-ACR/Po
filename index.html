@@ -413,7 +413,17 @@ firebase.auth().onAuthStateChanged((user) => {
                                     <button onclick="addComment('${data[key].MinOfPO_ID}')">Add Comment</button>
                                 </div>
 
-  
+  <div id="upload-container-${data[key].MinOfPO_ID}">
+                            <input type="file" id="file-upload-${data[key].MinOfPO_ID}" />
+                            <button onclick="uploadFile('${data[key].MinOfPO_ID}')">Upload</button>
+                        </div>
+                        <div id="uploaded-files-${data[key].MinOfPO_ID}">
+                            <h3>Uploaded Files:</h3>
+                            <ul id="files-list-${data[key].MinOfPO_ID}">
+                                <!-- سيتم إضافة الروابط هنا -->
+                            </ul>
+                        </div>
+
 
                             </td>
                         </tr>`;
@@ -429,6 +439,12 @@ firebase.auth().onAuthStateChanged((user) => {
                             });
                         }
                     });
+// Load uploaded files for this row
+            loadFiles(data[key].MinOfPO_ID);
+        }
+    });
+}
+
                 }
             });
         }
@@ -537,7 +553,74 @@ firebase.auth().onAuthStateChanged((user) => {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+// Upload file associated with a specific row
+function uploadFile(minOfPO_ID) {
+    var user = firebase.auth().currentUser;
+    if (!user) {
+        alert('You must be logged in to upload files.');
+        return;
+    }
 
+    var file = document.getElementById(`file-upload-${minOfPO_ID}`).files[0];
+    if (!file) {
+        alert('Please choose a file to upload.');
+        return;
+    }
+
+    var storageRef = firebase.storage().ref(`uploads/${file.name}`);
+    var uploadTask = storageRef.put(file);
+
+    uploadTask.on('state_changed',
+        function(snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+        },
+        function(error) {
+            console.error('Error uploading file:', error);
+        },
+        function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                console.log('File available at', downloadURL);
+                saveFileLink(minOfPO_ID, file.name, downloadURL); // حفظ الرابط في قاعدة البيانات مع ربطه بالصف
+            });
+        }
+    );
+}
+
+// Save file link associated with a specific row
+function saveFileLink(minOfPO_ID, fileName, downloadURL) {
+    var user = firebase.auth().currentUser;
+    if (user) {
+        var dbRef = firebase.database().ref(`users/${user.uid}/files/${minOfPO_ID}`);
+        dbRef.set({
+            name: fileName,
+            url: downloadURL
+        });
+    }
+}
+
+// Load files associated with a specific row
+function loadFiles(minOfPO_ID) {
+    var user = firebase.auth().currentUser;
+    if (user) {
+        var dbRef = firebase.database().ref(`users/${user.uid}/files/${minOfPO_ID}`);
+        dbRef.once('value', function(snapshot) {
+            var filesList = document.getElementById(`files-list-${minOfPO_ID}`);
+            filesList.innerHTML = ''; // Clear previous files
+
+            snapshot.forEach(function(childSnapshot) {
+                var file = childSnapshot.val();
+                var listItem = document.createElement('li');
+                var link = document.createElement('a');
+                link.href = file.url;
+                link.textContent = file.name;
+                link.target = '_blank';
+                listItem.appendChild(link);
+                filesList.appendChild(listItem);
+            });
+        });
+    }
+}
 
     </script>
 </body>
