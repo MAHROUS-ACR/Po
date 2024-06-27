@@ -588,38 +588,32 @@ function uploadFile(minOfPO_ID) {
 
 // Save file link associated with a specific row
 function saveFileLink(minOfPO_ID, fileName, downloadURL) {
-    var user = firebase.auth().currentUser;
-    if (user) {
-        var dbRef = firebase.database().ref(`users/${user.uid}/files/${minOfPO_ID}`);
-        var newFileRef = dbRef.push(); // Create a new reference for each file
-        newFileRef.set({
-            name: fileName,
-            url: downloadURL
-        });
-    }
+    var dbRef = firebase.database().ref(`files/${minOfPO_ID}`);
+    var newFileRef = dbRef.push(); // Create a new reference for each file
+    newFileRef.set({
+        name: fileName,
+        url: downloadURL
+    });
 }
 
 // Load files associated with a specific row
 function loadFiles(minOfPO_ID) {
-    var user = firebase.auth().currentUser;
-    if (user) {
-        var dbRef = firebase.database().ref(`users/${user.uid}/files/${minOfPO_ID}`);
-        dbRef.once('value', function(snapshot) {
-            var filesList = document.getElementById(`files-list-${minOfPO_ID}`);
-            filesList.innerHTML = ''; // Clear previous files
+    var dbRef = firebase.database().ref(`files/${minOfPO_ID}`);
+    dbRef.once('value', function(snapshot) {
+        var filesList = document.getElementById(`files-list-${minOfPO_ID}`);
+        filesList.innerHTML = ''; // Clear previous files
 
-            snapshot.forEach(function(childSnapshot) {
-                var file = childSnapshot.val();
-                var listItem = document.createElement('li');
-                var link = document.createElement('a');
-                link.href = file.url;
-                link.textContent = file.name;
-                link.target = '_blank';
-                listItem.appendChild(link);
-                filesList.appendChild(listItem);
-            });
+        snapshot.forEach(function(childSnapshot) {
+            var file = childSnapshot.val();
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.href = file.url;
+            link.textContent = file.name;
+            link.target = '_blank';
+            listItem.appendChild(link);
+            filesList.appendChild(listItem);
         });
-    }
+    });
 }
 
     </script>
