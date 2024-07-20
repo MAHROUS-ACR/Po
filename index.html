@@ -379,8 +379,8 @@ firebase.auth().onAuthStateChanged((user) => {
                 const nDvalue = snapshot.val();
                 document.getElementById('nDvalueDisplay').textContent= nDvalue;
             });
-             const Nref = database.ref('N/NE');
-            Nref.on('value', (snapshot) => {
+             const Eref = database.ref('N/NE');
+            Eref.on('value', (snapshot) => {
                 const nEvalue = snapshot.val();
                 document.getElementById('nEvalueDisplay').textContent= nEvalue;
             });
