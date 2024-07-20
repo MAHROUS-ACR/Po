@@ -28,6 +28,11 @@ background-color:#fff;
         }
         @keyframes blink {
             0% { color: #3498db; font-weight: bold; } /* اللون الأزرق ونص بولد */
+            50% { color: #ff0000; font-weight: normal; } /* اللون الأحمر ونص عادي */
+            100% { color: #3498db; font-weight: bold; } /* العودة إلى اللون الأزرق ونص بولد */
+        }
+      @keyframes blink2 {
+            0% { color: #3498db; font-weight: bold; } /* اللون الأزرق ونص بولد */
             50% { color: #ffffff; font-weight: normal; } /* اللون الأحمر ونص عادي */
             100% { color: #3498db; font-weight: bold; } /* العودة إلى اللون الأزرق ونص بولد */
         }
@@ -40,7 +45,7 @@ background-color:#fff;
             font-size: 20px;
         }
      #nEvalueDisplay {
-            animation: blink 2s infinite; /* تكرار التأثير كل ثانيتين وبشكل متكرر */
+            animation: blink2 2s infinite; /* تكرار التأثير كل ثانيتين وبشكل متكرر */
             color: #000000; /* اللون الأزرق الافتراضي للنص */
             font-weight: bold; /* نص بولد الافتراضي */
             text-align: center; /* محاذاة النص في الوسط */
