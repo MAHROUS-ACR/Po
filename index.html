@@ -361,8 +361,9 @@ s0.parentNode.insertBefore(s1,s0);
       <div class="popup" id="popup">
         <div class="popup-content">
             <span class="closebtn" onclick="closePopup()">&times;</span>
-            <p id="popup-message">جارٍ تحميل الرسالة...</p>
-         </div>
+            <div id="popup-messages">
+                <!-- الرسائل ستضاف هنا -->
+            </div>
     </div>
 
     <!-- Firebase SDKs and Configuration -->
@@ -801,22 +802,37 @@ function showUploadConfirmation(fileName, downloadURL) {
             });
         };
 
-        function fetchAlertMessage() {
-            const alertsRef = database.ref('/Alr'); // المسار إلى رسائل التنبيه
+       function fetchAlertMessages() {
+            const alertsRef = database.ref('Alr'); // المسار إلى عقدة التنبيه
             alertsRef.once('value', (snapshot) => {
-                const message = snapshot.val();
-                if (message) {
-                    showPopup(message);
+                const alerts = snapshot.val();
+                if (alerts) {
+                    // جلب الرسائل من الحقول المرقمة
+                    const messages = Object.values(alerts).filter(message => message);
+                    if (messages.length > 0) {
+                        // عرض الرسائل
+                        showPopup(messages);
+                    } else {
+                        console.log("لا توجد رسائل لتنبيه");
+                    }
                 } else {
-                    console.log("لا توجد رسائل لتنبيه");
+                    console.log("عقدة Alr فارغة");
                 }
             });
         }
 
-        function showPopup(message) {
+        function showPopup(messages) {
             var popup = document.getElementById('popup');
-            var popupContent = document.getElementById('popup-message');
-            popupContent.textContent = message;
+            var popupContent = document.getElementById('popup-messages');
+            popupContent.innerHTML = ''; // تفريغ محتوى التنبيه
+
+            // إضافة كل رسالة كعنصر <p> منفصل
+            messages.forEach(message => {
+                var p = document.createElement('p');
+                p.textContent = message;
+                popupContent.appendChild(p);
+            });
+
             popup.style.display = 'flex';
         }
 
