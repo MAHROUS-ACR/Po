@@ -375,10 +375,10 @@ firebase.auth().onAuthStateChanged((user) => {
         document.getElementById('chat-container').style.display = 'block';
         document.getElementById('user-email').style.display = 'block';
         document.getElementById('user-email').innerText = `Logged in as: ${user.email}`;
-     document.getElementById('popup').style.display = 'block';
+     
         fetchData();
         loadChatMessages();
-     showPopup();
+     
      
     } else {
         document.getElementById('login-form').style.display = 'block';
@@ -387,7 +387,7 @@ firebase.auth().onAuthStateChanged((user) => {
         document.getElementById('filters').style.display = 'none';
         document.getElementById('chat-container').style.display = 'none';
         document.getElementById('user-email').style.display = 'none';
-     document.getElementById('popup').style.display = 'none';
+    
       
     }
 });
@@ -768,7 +768,7 @@ function showUploadConfirmation(fileName, downloadURL) {
      window.onload = function() {
             var shouldShowPopup = true; // غيّر هذه القيمة إلى false لتعطيل التنبيه
 
-            if (shouldShowPopup) {
+            if (user && shouldShowPopup) {
                 showPopup();
             }
         };
