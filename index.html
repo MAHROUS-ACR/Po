@@ -765,14 +765,15 @@ function showUploadConfirmation(fileName, downloadURL) {
     listItem.appendChild(link);
     filesList.appendChild(listItem);
 }
-     window.onload = function() {
-      firebase.auth().onAuthStateChanged((user) => {
-            var shouldShowPopup = true; // غيّر هذه القيمة إلى false لتعطيل التنبيه
+    window.onload = function() {
+            firebase.auth().onAuthStateChanged((user) => {
+                var shouldShowPopup = true; // غيّر هذه القيمة إلى false لتعطيل التنبيه
 
-            if (user && shouldShowPopup) {
-                showPopup();
-            }
-        });
+                if (user && shouldShowPopup) {
+                    showPopup();
+                }
+            });
+        };
 
         function showPopup() {
             var popup = document.getElementById('popup');
@@ -783,7 +784,6 @@ function showUploadConfirmation(fileName, downloadURL) {
             var popup = document.getElementById('popup');
             popup.style.display = 'none';
         }
-     };
     </script>
 </body>
 </html>
