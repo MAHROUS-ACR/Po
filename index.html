@@ -794,6 +794,7 @@ function showUploadConfirmation(fileName, downloadURL) {
     listItem.appendChild(link);
     filesList.appendChild(listItem);
 }
+         const alart = firebase.database();
   window.onload = function() {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -802,8 +803,8 @@ function showUploadConfirmation(fileName, downloadURL) {
             });
         };
 
-       function fetchAlertMessages() {
-            const alertsRef = database.ref('/Alr'); // المسار إلى عقدة التنبيه
+        function fetchAlertMessages() {
+            const alertsRef = alart.ref('Alr'); // استخدام الاسم الجديد هنا
             alertsRef.once('value', (snapshot) => {
                 const alerts = snapshot.val();
                 if (alerts) {
