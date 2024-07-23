@@ -221,6 +221,29 @@ background-color:#fff;
             line-height: 20px;
             border-radius: 13px;
         }
+           .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            margin-bottom: 15px;
+            opacity: 1;
+            transition: opacity 0.6s;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
     </style>
     
 </script>
@@ -252,7 +275,9 @@ s0.parentNode.insertBefore(s1,s0);
                 <p id="login-error" style="color:red;"></p>
             </form>
         </div>
-         
+         <div class="alert" id="alert" style="display: none;">
+       test ....
+        <span class="closebtn" onclick="closeAlert()">&times;</span>
         <button id="logout-button" onclick="logout()" style="display:none;">Logout</button>
      <div id = "nEvalueDisplay"></div>
         <div id = "nDvalueDisplay"></div>
@@ -718,6 +743,28 @@ function showUploadConfirmation(fileName, downloadURL) {
     listItem.appendChild(link);
     filesList.appendChild(listItem);
 }
+     window.onload = function() {
+            // افترض أن هذا المتغير يأتي من منطق أو قاعدة بيانات
+            var shouldShowAlert = true; // غيّر هذه القيمة إلى false لتعطيل التنبيه
+
+            if (shouldShowAlert) {
+                showAlert();
+            }
+        };
+
+        function showAlert() {
+            var alertElement = document.getElementById('alert');
+            alertElement.style.display = 'block';
+            alertElement.style.opacity = '1';
+        }
+
+        function closeAlert() {
+            var alertElement = document.getElementById('alert');
+            alertElement.style.opacity = '0';
+            setTimeout(function() {
+                alertElement.style.display = 'none';
+            }, 600);
+        }
     </script>
 </body>
 </html>
