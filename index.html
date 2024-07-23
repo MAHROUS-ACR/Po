@@ -803,7 +803,7 @@ function showUploadConfirmation(fileName, downloadURL) {
         };
 
        function fetchAlertMessages() {
-            const alertsRef = database.ref('Alr'); // المسار إلى عقدة التنبيه
+            const alertsRef = database.ref('/Alr'); // المسار إلى عقدة التنبيه
             alertsRef.once('value', (snapshot) => {
                 const alerts = snapshot.val();
                 if (alerts) {
