@@ -361,8 +361,7 @@ s0.parentNode.insertBefore(s1,s0);
       <div class="popup" id="popup">
         <div class="popup-content">
             <span class="closebtn" onclick="closePopup()">&times;</span>
-            <p>The loading date for Al Safwa Company has been postponed to a near future date-</p>
-            <p></p>
+            <p id="popup-message">جارٍ تحميل الرسالة...</p>
          </div>
     </div>
 
@@ -794,18 +793,30 @@ function showUploadConfirmation(fileName, downloadURL) {
     listItem.appendChild(link);
     filesList.appendChild(listItem);
 }
-    window.onload = function() {
+   window.onload = function() {
             firebase.auth().onAuthStateChanged((user) => {
-                var shouldShowPopup = false ; // غيّر هذه القيمة إلى false لتعطيل التنبيه
-
-                if (user && shouldShowPopup) {
-                    showPopup();
+                if (user) {
+                    fetchAlertMessage();
                 }
             });
         };
 
-        function showPopup() {
+        function fetchAlertMessage() {
+            const alertsRef = database.ref('Alr'); // المسار إلى رسائل التنبيه
+            alertsRef.once('value', (snapshot) => {
+                const message = snapshot.val();
+                if (message) {
+                    showPopup(message);
+                } else {
+                    console.log("لا توجد رسائل لتنبيه");
+                }
+            });
+        }
+
+        function showPopup(message) {
             var popup = document.getElementById('popup');
+            var popupContent = document.getElementById('popup-message');
+            popupContent.textContent = message;
             popup.style.display = 'flex';
         }
 
