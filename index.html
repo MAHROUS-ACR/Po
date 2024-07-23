@@ -796,7 +796,7 @@ function showUploadConfirmation(fileName, downloadURL) {
 }
     window.onload = function() {
             firebase.auth().onAuthStateChanged((user) => {
-                var shouldShowPopup = true; // غيّر هذه القيمة إلى false لتعطيل التنبيه
+                var shouldShowPopup = false ; // غيّر هذه القيمة إلى false لتعطيل التنبيه
 
                 if (user && shouldShowPopup) {
                     showPopup();
