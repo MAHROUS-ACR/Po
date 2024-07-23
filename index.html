@@ -378,6 +378,7 @@ firebase.auth().onAuthStateChanged((user) => {
      document.getElementById('popup').style.display = 'block';
         fetchData();
         loadChatMessages();
+     showPopup();
      
     } else {
         document.getElementById('login-form').style.display = 'block';
