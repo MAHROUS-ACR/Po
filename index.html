@@ -794,10 +794,10 @@ function showUploadConfirmation(fileName, downloadURL) {
     listItem.appendChild(link);
     filesList.appendChild(listItem);
 }
-   window.onload = function() {
+  window.onload = function() {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-                    fetchAlertMessage();
+                    fetchAlertMessages();
                 }
             });
         };
